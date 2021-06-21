@@ -35,4 +35,19 @@ class AccountTest {
         //then
         verify(transactionRepository, times(1)).addWithdraw(amount);
     }
+
+    @Test
+    void should_print_and_trans_repo_allTransactions_been_call_when_execute_printStatement() {
+        //given
+        TransactionRepository transactionRepository = mock(TransactionRepository.class);
+        Printer printer = mock(Printer.class);
+        Account account = new Account(transactionRepository, printer);
+
+        //when
+        account.printStatement();
+
+        //then
+        verify(transactionRepository).allTransactions();
+        verify(printer).print(anyList());
+    }
 }
