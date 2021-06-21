@@ -21,4 +21,18 @@ class TransactionRepositoryTest {
         assertEquals(1, transactionRepository.transactions.size());
     }
 
+    @Test
+    void should_transaction_list_add_been_call_when_execute_withdraw_deposit() {
+        //given
+        int amount = 100;
+        Clock mockClock = mock(Clock.class);
+        TransactionRepository transactionRepository = new TransactionRepository(mockClock);
+
+        //when
+        transactionRepository.addWithdraw(amount);
+
+        //then
+        assertEquals(1, transactionRepository.transactions.size());
+        assertEquals(-100, transactionRepository.transactions.get(0).amount());
+    }
 }
